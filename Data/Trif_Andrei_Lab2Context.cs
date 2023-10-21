@@ -10,5 +10,7 @@ namespace Trif_Andrei_Lab2.Data
         public DbSet<Book> Book { get; set; } = default!;
 
         public DbSet<Publisher>? Publisher { get; set; }
+
+        public DbSet<Author>? Author { get; set; }
     }
 }

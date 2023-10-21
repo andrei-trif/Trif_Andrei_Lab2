@@ -6,9 +6,9 @@ namespace Trif_Andrei_Lab2.Models
     {
         public int ID { get; set; }
 
-        [Display(Name = "Publisher Name")]
-        public string PublisherName { get; set; }
+        [Display(Name = "Publisher")]
+        public string PublisherName { get; set; } = string.Empty;
 
-        public ICollection<Book>? Books { get; set; } // navigation property
+        public ICollection<Book>? Books { get; set; }
     }
 }

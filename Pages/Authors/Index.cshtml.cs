@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Trif_Andrei_Lab2.Data;
 using Trif_Andrei_Lab2.Models;
 
-namespace Trif_Andrei_Lab2.Pages.Books
+namespace Trif_Andrei_Lab2.Pages.Authors
 {
     public class IndexModel : PageModel
     {
@@ -14,16 +14,13 @@ namespace Trif_Andrei_Lab2.Pages.Books
             _context = context;
         }
 
-        public IList<Book> Book { get;set; } = default!;
+        public IList<Author> Author { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Book != null)
+            if (_context.Author != null)
             {
-                Book = await _context.Book
-                    .Include(x => x.Author)
-                    .Include(x => x.Publisher)
-                    .ToListAsync();
+                Author = await _context.Author.ToListAsync();
             }
         }
     }

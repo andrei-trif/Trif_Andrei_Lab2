@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Security.Policy;
 
 namespace Trif_Andrei_Lab2.Models
 {
@@ -9,19 +8,23 @@ namespace Trif_Andrei_Lab2.Models
         public int ID { get; set; }
 
         [Display(Name = "Book Title")]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
-        public string Author { get; set; }
+        [Display(Name = "Author")]
+        public int? AuthorID { get; set; }
+
+        public Author? Author { get; set; }
 
         [Column(TypeName = "decimal(6, 2)")]
         public decimal Price { get; set; }
 
         [DataType(DataType.Date)]
-        [Display(Name = "Publish DateT")]
+        [Display(Name = "Publish Date")]
         public DateTime PublishingDate { get; set; }
 
+        [Display(Name = "Publisher")]
         public int? PublisherID { get; set; }
 
-        public Publisher? Publisher { get; set; } // navigation property
+        public Publisher? Publisher { get; set; }
     }
 }

@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Trif_Andrei_Lab2.Data;
 using Trif_Andrei_Lab2.Models;
 
-namespace Trif_Andrei_Lab2.Pages.Books
+namespace Trif_Andrei_Lab2.Pages.Authors
 {
     public class CreateModel : PageModel
     {
@@ -17,23 +16,20 @@ namespace Trif_Andrei_Lab2.Pages.Books
 
         public IActionResult OnGet()
         {
-            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "ID", "AuthorName");
-            ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID", "PublisherName");
-            
             return Page();
         }
 
         [BindProperty]
-        public Book Book { get; set; } = default!;
+        public Author Author { get; set; } = default!;
         
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Book == null || Book == null)
+          if (!ModelState.IsValid || _context.Author == null || Author == null)
             {
                 return Page();
             }
 
-            _context.Book.Add(Book);
+            _context.Author.Add(Author);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
