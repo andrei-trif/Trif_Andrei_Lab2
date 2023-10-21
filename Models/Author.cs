@@ -14,5 +14,7 @@ namespace Trif_Andrei_Lab2.Models
 
         [Display(Name = "Author")]
         public string AuthorName => $"{LastName}, {FirstName}";
+
+        public ICollection<Book>? Books { get; set; }
     }
 }
