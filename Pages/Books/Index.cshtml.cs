@@ -15,15 +15,30 @@ namespace Trif_Andrei_Lab2.Pages.Books
         }
 
         public IList<Book> Book { get;set; } = default!;
+        public BookData BookData { get; set; } = default!;
 
-        public async Task OnGetAsync()
+        public int BookID { get; set; }
+        public int CategoryID { get; set; }
+
+        public async Task OnGetAsync(int? id, int? categoryID)
         {
-            if (_context.Book != null)
+            BookData = new BookData();
+            
+            BookData.Books = await _context.Book
+                .Include(b => b.Publisher)
+                .Include(b => b.BookCategories)
+                .ThenInclude(b => b.Category)
+                .AsNoTracking()
+                .OrderBy(b => b.Title)
+                .ToListAsync();
+
+            if (id != null)
             {
-                Book = await _context.Book
-                    .Include(x => x.Author)
-                    .Include(x => x.Publisher)
-                    .ToListAsync();
+                BookID = id.Value;
+
+                var book = BookData.Books.Where(i => i.ID == id.Value).Single();
+                
+                BookData.Categories = book.BookCategories.Select(s => s.Category);
             }
         }
     }

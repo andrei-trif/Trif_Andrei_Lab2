@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Trif_Andrei_Lab2.Data;
 using Trif_Andrei_Lab2.Models;
 
-namespace Trif_Andrei_Lab2.Pages.Books
+namespace Trif_Andrei_Lab2.Pages.Categories
 {
     public class DetailsModel : PageModel
     {
@@ -15,30 +15,23 @@ namespace Trif_Andrei_Lab2.Pages.Books
             _context = context;
         }
 
-        public Book Book { get; set; } = default!; 
+      public Category Category { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Book == null)
+            if (id == null || _context.Category == null)
             {
                 return NotFound();
             }
 
-            var book = await _context.Book
-                .Include(x => x.Author)
-                .Include(x => x.Publisher)
-                .Include(b => b.BookCategories)
-                .ThenInclude(b => b.Category)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.ID == id);
-            
-            if (book == null)
+            var category = await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
+            if (category == null)
             {
                 return NotFound();
             }
             else 
             {
-                Book = book;
+                Category = category;
             }
             return Page();
         }

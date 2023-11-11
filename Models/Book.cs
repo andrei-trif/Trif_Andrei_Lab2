@@ -26,5 +26,8 @@ namespace Trif_Andrei_Lab2.Models
         public int? PublisherID { get; set; }
 
         public Publisher? Publisher { get; set; }
+
+        [Display(Name = "Book Categories")]
+        public ICollection<BookCategory>? BookCategories { get; set; }
     }
 }

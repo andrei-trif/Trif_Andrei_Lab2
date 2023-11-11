@@ -12,5 +12,7 @@ namespace Trif_Andrei_Lab2.Data
         public DbSet<Publisher>? Publisher { get; set; }
 
         public DbSet<Author>? Author { get; set; }
+
+        public DbSet<Category>? Category { get; set; }
     }
 }
