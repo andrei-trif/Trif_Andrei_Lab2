@@ -30,6 +30,13 @@ namespace Trif_Andrei_Lab2.Models
         [Display(Name = "Book Categories")]
         public ICollection<BookCategory>? BookCategories { get; set; }
 
+        public int? BorrowingID { get; set; }
+
+        public Borrowing? Borrowing { get; set; }
+
+        public string BookFullName => Author != null
+            ? $"{Title} - {Author.LastName} {Author.FirstName}" : Title;
+
         public override bool Equals(object? obj)
         {
             return obj is Book other && Equals(other);
