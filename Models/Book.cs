@@ -29,5 +29,20 @@ namespace Trif_Andrei_Lab2.Models
 
         [Display(Name = "Book Categories")]
         public ICollection<BookCategory>? BookCategories { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Book other && Equals(other);
+        }
+
+        public bool Equals(Book other)
+        {
+            return ID == other.ID;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(ID);
+        }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Trif_Andrei_Lab2.Data;
 using Trif_Andrei_Lab2.Models;
+using Trif_Andrei_Lab2.Models.ViewModels;
 
 namespace Trif_Andrei_Lab2.Pages.Publishers
 {
@@ -15,12 +16,24 @@ namespace Trif_Andrei_Lab2.Pages.Publishers
         }
 
         public IList<Publisher> Publisher { get;set; } = default!;
+        public PublisherIndexData PublisherData { get; set; } = default!;
+        public int PublisherID { get; set; }
+        public int BookID { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(int? id, int? bookID)
         {
-            if (_context.Publisher != null)
+            PublisherData = new PublisherIndexData();
+
+            PublisherData.Publishers = await _context.Publisher
+                .Include(i => i.Books)
+                .ThenInclude(c => c.Author)
+                .OrderBy(i => i.PublisherName)
+                .ToListAsync();
+
+            if (id != null)
             {
-                Publisher = await _context.Publisher.ToListAsync();
+                PublisherID = id.Value;
+                PublisherData.Books = PublisherData.Publishers.SelectMany(x => x.Books ?? Enumerable.Empty<Book>()).Distinct();
             }
         }
     }
