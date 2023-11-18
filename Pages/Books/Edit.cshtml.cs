@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Trif_Andrei_Lab2.Data;
@@ -6,6 +7,7 @@ using Trif_Andrei_Lab2.Models;
 
 namespace Trif_Andrei_Lab2.Pages.Books
 {
+    [Authorize(Roles = "Admin")]
     public class EditModel : BookCategoriesPageModel
     {
         private readonly Trif_Andrei_Lab2Context _context;
